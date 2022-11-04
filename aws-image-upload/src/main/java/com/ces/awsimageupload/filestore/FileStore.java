@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class FileStore {
+
   private final AmazonS3 s3;
 
   public void save(
