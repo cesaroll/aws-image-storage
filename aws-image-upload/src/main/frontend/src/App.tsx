@@ -5,7 +5,7 @@ import axios from "axios";
 const UserProfiles = (): JSX.Element => {
   const fetchUserProfiles = () => {
     axios.get("http://localhost:8080/api/v1/user-profile").then((res) => {
-      console.log(res);
+      console.log(JSON.stringify(res, null, 4));
     });
   };
 
