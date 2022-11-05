@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import UserProfiles from "./UserProfiles/components/UserProfiles";
 import { getUserProfiles } from "./UserProfiles/services/UserProfileService";
 import { UserProfileInterface } from "./UserProfiles/types/UserProfileInterface";
-
-interface UserProfilesParms {
-  userProfiles: UserProfileInterface[];
-}
-
-const UserProfiles = ({ userProfiles }: UserProfilesParms): JSX.Element => {
-  return <h1>Length: {userProfiles?.length}</h1>;
-};
 
 function App() {
   const [userProfiles, setUserProfiles] = useState<UserProfileInterface[]>([]);
