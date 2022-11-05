@@ -1,21 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import axios from "axios";
-import { fetchUserProfiles } from "./UserProfiles/services/UserProfileService";
+import { getUserProfiles } from "./UserProfiles/services/UserProfileService";
+import { UserProfileInterface } from "./UserProfiles/types/UserProfileInterface";
 
-const UserProfiles = (): JSX.Element => {
-  useEffect(() => {
-    console.log("Call fetchUserProfiles");
-    fetchUserProfiles();
-  }, []);
+interface UserProfilesParms {
+  userProfiles: UserProfileInterface[];
+}
 
-  return <h1>Hello</h1>;
+const UserProfiles = ({ userProfiles }: UserProfilesParms): JSX.Element => {
+  return <h1>Length: {userProfiles?.length}</h1>;
 };
 
 function App() {
+  const [userProfiles, setUserProfiles] = useState<UserProfileInterface[]>([]);
+
+  const fetchUserProfiles = async () => {
+    const items = await getUserProfiles();
+    setUserProfiles(items);
+  };
+
+  useEffect(() => {
+    fetchUserProfiles();
+  }, []);
+
   return (
     <div className="App">
-      <UserProfiles></UserProfiles>
+      <UserProfiles userProfiles={userProfiles}></UserProfiles>
     </div>
   );
 }
