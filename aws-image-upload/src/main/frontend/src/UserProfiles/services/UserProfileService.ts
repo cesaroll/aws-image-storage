@@ -24,3 +24,23 @@ export const fetchUserProfiles = async (
   const userProfiles = await getUserProfiles();
   setUserProfiles(userProfiles);
 };
+
+export const uploadUserProfileImage = async (
+  id: string,
+  formData: FormData
+) => {
+  try {
+    await axios.post(
+      `http://localhost:8080/api/v1/user-profile/${id}/image/upload`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    console.log("File uploaded successfully");
+  } catch (e) {
+    throw e;
+  }
+};

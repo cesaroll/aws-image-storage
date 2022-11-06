@@ -12,7 +12,7 @@ const UserProfile = ({ userProfile }: UserProfileParms) => {
       <br />
       <h2>{userProfile.name}</h2>
       <p>{userProfile.id}</p>
-      <DropZone />
+      <DropZone {...userProfile} />
       <br />
     </>
   );
