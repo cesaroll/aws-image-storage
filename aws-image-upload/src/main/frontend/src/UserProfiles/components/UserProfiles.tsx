@@ -1,16 +1,16 @@
-import React from "react";
-import { UserProfileInterface } from "../types/UserProfileInterface";
+import React, { useContext } from "react";
+import { UserProfilesContext } from "../context/UserProfileContext";
 import UserProfile from "./UserProfile";
 
-interface UserProfilesParms {
-  userProfiles: UserProfileInterface[];
-}
+const UserProfiles = (): JSX.Element => {
+  const userProfilesContext = useContext(UserProfilesContext);
 
-const UserProfiles = ({ userProfiles }: UserProfilesParms): JSX.Element => {
+  const userProfiles = userProfilesContext?.userProfiles;
+
   return (
     <>
       <h1>Length: {userProfiles?.length}</h1>
-      {userProfiles.map((userProfile, index) => {
+      {userProfiles?.map((userProfile, index) => {
         return (
           <div key={index}>
             <UserProfile userProfile={userProfile}></UserProfile>

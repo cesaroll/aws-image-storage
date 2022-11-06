@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import UserProfiles from "./UserProfiles/components/UserProfiles";
+import { UserProfilesContext } from "./UserProfiles/context/UserProfileContext";
 import { fetchUserProfiles } from "./UserProfiles/services/UserProfileService";
 import { UserProfileInterface } from "./UserProfiles/types/UserProfileInterface";
 
-function App() {
+const App = () => {
   const [userProfiles, setUserProfiles] = useState<UserProfileInterface[]>([]);
 
   useEffect(() => {
@@ -13,9 +14,11 @@ function App() {
 
   return (
     <div className="App">
-      <UserProfiles userProfiles={userProfiles}></UserProfiles>
+      <UserProfilesContext.Provider value={{ userProfiles }}>
+        <UserProfiles></UserProfiles>
+      </UserProfilesContext.Provider>
     </div>
   );
-}
+};
 
 export default App;
