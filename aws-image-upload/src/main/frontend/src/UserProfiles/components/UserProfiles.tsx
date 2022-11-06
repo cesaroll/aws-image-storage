@@ -4,12 +4,10 @@ import UserProfile from "./UserProfile";
 
 const UserProfiles = (): JSX.Element => {
   const userProfilesContext = useContext(UserProfilesContext);
-
   const userProfiles = userProfilesContext?.userProfiles;
 
   return (
     <>
-      <h1>Length: {userProfiles?.length}</h1>
       {userProfiles?.map((userProfile, index) => {
         return (
           <div key={index}>
