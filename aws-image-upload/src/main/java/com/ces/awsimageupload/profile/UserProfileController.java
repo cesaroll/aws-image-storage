@@ -39,6 +39,6 @@ public class UserProfileController {
     @RequestParam("file")
     MultipartFile file
   ) {
-    userProfileService.uploadUserProfileIMage(id, file);
+    userProfileService.uploadUserProfileImage(id, file);
   }
 }

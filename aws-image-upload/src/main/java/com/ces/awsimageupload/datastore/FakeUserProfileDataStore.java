@@ -2,6 +2,7 @@ package com.ces.awsimageupload.datastore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Repository;
 import com.ces.awsimageupload.profile.UserProfile;
@@ -19,5 +20,12 @@ public class FakeUserProfileDataStore implements UserProfileDataStore {
   @Override
   public List<UserProfile> getUserProfiles() {
     return USER_PROFILES;
+  }
+
+  @Override
+  public Optional<UserProfile> getUserProfile(UUID id) {
+    return USER_PROFILES.stream()
+      .filter(userProfile -> userProfile.getId().equals(id))
+      .findFirst();
   }
 }
