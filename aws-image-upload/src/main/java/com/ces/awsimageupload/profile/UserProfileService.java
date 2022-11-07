@@ -45,7 +45,7 @@ public class UserProfileService {
 
     // 5. Store image in S3 and Update DB with S3, image and Link
     var path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), userProfile.getId());
-    var fileName = String .format("%s-%s", file.getName(), UUID.randomUUID());
+    var fileName = String .format("%s-%s", file.getOriginalFilename(), UUID.randomUUID());
 
     try {
       fileStore.save(path, fileName, Optional.of(metaData), file.getInputStream());
