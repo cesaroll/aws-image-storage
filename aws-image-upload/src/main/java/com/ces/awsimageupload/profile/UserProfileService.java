@@ -49,6 +49,7 @@ public class UserProfileService {
 
     try {
       fileStore.save(path, fileName, Optional.of(metaData), file.getInputStream());
+      userProfile.setImageLink(fileName);
     } catch (IOException e) {
       throw new IllegalStateException(e);
     }

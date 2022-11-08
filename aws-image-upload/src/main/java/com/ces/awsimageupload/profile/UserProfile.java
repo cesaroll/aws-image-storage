@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserProfile {
-  private UUID id;
-  private String name;
+  private final UUID id;
+  private final String name;
   private String imageLink;
 }
