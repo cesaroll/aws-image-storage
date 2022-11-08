@@ -44,15 +44,27 @@ public class UserProfileService {
     Map<String, String> metaData = extractMetadata(file);
 
     // 5. Store image in S3 and Update DB with S3, image and Link
-    var path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), userProfile.getId());
+    var path = getPath(userProfile);
     var fileName = String .format("%s-%s", file.getOriginalFilename(), UUID.randomUUID());
 
     try {
       fileStore.save(path, fileName, Optional.of(metaData), file.getInputStream());
-      userProfile.setImageLink(fileName);
+      userProfile.setImageLink(Optional.of(fileName));
     } catch (IOException e) {
       throw new IllegalStateException(e);
     }
+  }
+
+  public byte[] downloadUserProfileImage(UUID id) {
+    var userProfile = userProfileRepository.getuserProfile(id);
+    var path = getPath(userProfile);
+    return userProfile.getImageLink()
+      .map(key -> fileStore.download(path, key))
+      .orElse(new byte[0]);
+  }
+
+  private String getPath(UserProfile userProfile) {
+    return String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), userProfile.getId());
   }
 
   private Map<String, String> extractMetadata(MultipartFile file) {

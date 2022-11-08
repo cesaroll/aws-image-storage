@@ -1,5 +1,6 @@
 package com.ces.awsimageupload.profile;
 
+import java.util.Optional;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -13,5 +14,5 @@ import lombok.Setter;
 public class UserProfile {
   private final UUID id;
   private final String name;
-  private String imageLink;
+  private Optional<String> imageLink;
 }

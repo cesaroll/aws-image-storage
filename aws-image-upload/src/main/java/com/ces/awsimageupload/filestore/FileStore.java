@@ -1,5 +1,6 @@
 package com.ces.awsimageupload.filestore;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Optional;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.util.IOUtils;
 
 import lombok.AllArgsConstructor;
 
@@ -34,6 +36,16 @@ public class FileStore {
       s3.putObject(path, fileName, inputStream, metadata);
     } catch (AmazonServiceException e) {
       throw new IllegalStateException("Failed to store file to s3", e);
+    }
+  }
+
+  public byte[] download(String path, String key) {
+    try {
+      var obj = s3.getObject(path, key);
+      var stream = obj.getObjectContent();
+      return IOUtils.toByteArray(stream);
+    } catch(AmazonServiceException | IOException e) {
+      throw new IllegalStateException("Failed to download file from s3", e);
     }
   }
 }
